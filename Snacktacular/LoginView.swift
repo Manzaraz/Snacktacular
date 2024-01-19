@@ -9,10 +9,17 @@ import SwiftUI
 import Firebase
 
 struct LoginView: View {
+    enum Field {
+        case email, password
+    }
+    
     @State private var email = ""
     @State private var password = ""
     @State private var showingAlert = false
     @State private var alertMessage = ""
+    @State private var buttonDissabled = true
+    
+    @FocusState private var focusField: Field?
     
     var body: some View {
         NavigationStack {
@@ -27,10 +34,24 @@ struct LoginView: View {
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
                     .submitLabel(.next)
+                    .focused($focusField, equals: .email) // this field is bound to the .email case
+                    .onSubmit { // Move from email field to passwordfield
+                        focusField = .password
+                    }
+                    .onChange(of: email) {
+                        enableButtons()
+                    }
                 
                 SecureField("Password", text: $password)
                     .textInputAutocapitalization(.never)
                     .submitLabel(.done)
+                    .focused($focusField, equals: .password) // this field is bound to the .password case
+                    .onSubmit { // Dismiss keyboard after Done
+                        focusField = nil
+                    }
+                    .onChange(of: password) {
+                        enableButtons()
+                    }
                 
             }
             .textFieldStyle(.roundedBorder)
@@ -55,6 +76,7 @@ struct LoginView: View {
                 }
                 .padding(.leading)
             }
+            .disabled(buttonDissabled)
             .buttonStyle(.borderedProminent)
             .tint(Color("SnackColor"))
             .font(.title2)
@@ -64,6 +86,14 @@ struct LoginView: View {
         .alert(alertMessage, isPresented: $showingAlert) {
             Button("OK", role: .cancel) {}
         }
+    }
+    
+    func enableButtons() {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailIsGood = NSPredicate(format: "SELF MATCHES %@", emailRegEx).evaluate(with: email)
+        
+        let passwordIsGood = password.count >= 6
+        buttonDissabled = !(emailIsGood && passwordIsGood)
     }
     
     func register() {
@@ -76,8 +106,6 @@ struct LoginView: View {
                 print("😎 Registration Success!")
                 // TODO: Load ListView
             }
-            
-            
         }
     }
     
