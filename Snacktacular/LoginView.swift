@@ -18,6 +18,7 @@ struct LoginView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var buttonDissabled = true
+    @State private var showPassword = false
     
     @FocusState private var focusField: Field?
     
@@ -42,17 +43,40 @@ struct LoginView: View {
                         enableButtons()
                     }
                 
-                SecureField("Password", text: $password)
-                    .textInputAutocapitalization(.never)
-                    .submitLabel(.done)
-                    .focused($focusField, equals: .password) // this field is bound to the .password case
-                    .onSubmit { // Dismiss keyboard after Done
-                        focusField = nil
+                HStack {
+                    if showPassword {
+                        TextField("Password", text: $password)
+                            .textInputAutocapitalization(.never)
+                            .submitLabel(.done)
+                            .focused($focusField, equals: .password) // this field is bound to the .password case
+                            .onSubmit { // Dismiss keyboard after Done
+                                focusField = nil
+                            }
+                            .onChange(of: password) {
+                                enableButtons()
+                            }
+                    } else {
+                        SecureField("Password", text: $password)
+                            .textInputAutocapitalization(.never)
+                            .autocorrectionDisabled()
+                            .submitLabel(.done)
+                            .focused($focusField, equals: .password) // this field is bound to the .password case
+                            .onSubmit { // Dismiss keyboard after Done
+                                focusField = nil
+                            }
+                            .onChange(of: password) {
+                                enableButtons()
+                            }
                     }
-                    .onChange(of: password) {
-                        enableButtons()
+                    
+                    Button {
+                        self.showPassword.toggle()
+                    } label: {
+                        Image(systemName: self.showPassword ? "eyebrow": "eye")
+                            .foregroundStyle(Color("SnackColor"))
+                            .padding(.horizontal)
                     }
-                
+                }
             }
             .textFieldStyle(.roundedBorder)
             .overlay {
