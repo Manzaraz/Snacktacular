@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 
 struct ListView: View {
+    @State private var sheetIsPresented = false
     @Environment(\.dismiss) private var dismiss
     
     
@@ -32,10 +33,15 @@ struct ListView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    // TODO: Add item code here
+                    sheetIsPresented.toggle()
                 } label: {
                     Image(systemName: "plus")
                 }
+            }
+        }
+        .sheet(isPresented: $sheetIsPresented) {
+            NavigationStack {
+                SpotDetailView(spot: Spot())
             }
         }
     }

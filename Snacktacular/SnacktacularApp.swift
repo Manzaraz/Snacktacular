@@ -20,10 +20,12 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct SnacktacularApp: App {
     // Register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var spotVM = SpotViewModel()
     
     var body: some Scene {
         WindowGroup {
             LoginView()
+                .environmentObject(spotVM)
         }
     }
 }
