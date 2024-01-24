@@ -7,41 +7,51 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestoreSwift
 
 struct ListView: View {
+    @FirestoreQuery(collectionPath: "spots") var spots: [Spot]
     @State private var sheetIsPresented = false
     @Environment(\.dismiss) private var dismiss
     
     
     var body: some View {
-        List {
-            Text("List items will go here")
-        }
-        .listStyle(.plain)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button("Sign Out") {
-                    do {
-                        try Auth.auth().signOut()
-                        print("🪵➡️ Log Out successful!")
-                        dismiss()
-                    } catch {
-                        print("😡 ERROR: Could not sign out!")
+        NavigationStack {
+            List(spots) { spot in
+                NavigationLink {
+                    SpotDetailView(spot: spot)
+                } label: {
+                    Text(spot.name)
+                        .font(.title2)
+                }
+            }
+            .listStyle(.plain)
+            .navigationTitle("Snack Spots")
+            .navigationBarTitleDisplayMode(.inline) // Bug shows large jump
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Sign Out") {
+                        do {
+                            try Auth.auth().signOut()
+                            print("🪵➡️ Log Out successful!")
+                            dismiss()
+                        } catch {
+                            print("😡 ERROR: Could not sign out!")
+                        }
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        sheetIsPresented.toggle()
+                    } label: {
+                        Image(systemName: "plus")
                     }
                 }
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    sheetIsPresented.toggle()
-                } label: {
-                    Image(systemName: "plus")
+            .sheet(isPresented: $sheetIsPresented) {
+                NavigationStack {
+                    SpotDetailView(spot: Spot())
                 }
-            }
-        }
-        .sheet(isPresented: $sheetIsPresented) {
-            NavigationStack {
-                SpotDetailView(spot: Spot())
             }
         }
     }

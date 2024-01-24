@@ -12,7 +12,7 @@ class SpotViewModel: ObservableObject {
     @Published var spot = Spot()
     
     func saveSpot(spot: Spot) async -> Bool {
-        let db = Firestore.firestore()// ignore anyu error that shows up here. Wait for indexing. Clean built if it persist with shift+command+k. error usually goes away with build+run. Otherwise try restarting Mac/Xcode and deleting derived data. For instructions on derived data delection, see http://deriveddata.dance 
+        let db = Firestore.firestore()// Ignore any error that shows up here. Wait for indexing. Clean built if it persist with shift+command+k. Error usually goes away with build+run. Otherwise try restarting Mac/Xcode and deleting derived data. For instructions on derived data delection, see 👉🏻 http://deriveddata.dance 👀
         
         if let id = spot.id { // spoit must already exist, so save.
             do {
@@ -34,4 +34,6 @@ class SpotViewModel: ObservableObject {
             }
         }
     }
+    
+    
 }
