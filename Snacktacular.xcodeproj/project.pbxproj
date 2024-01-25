@@ -21,6 +21,9 @@
 		6189FE712B5AB73000F731C5 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6189FE702B5AB73000F731C5 /* LoginView.swift */; };
 		6189FE732B5AB73300F731C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6189FE722B5AB73300F731C5 /* Assets.xcassets */; };
 		6189FE762B5AB73300F731C5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6189FE752B5AB73300F731C5 /* Preview Assets.xcassets */; };
+		61B5C0D72B620E7500E7D87A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5C0D62B620E7500E7D87A /* Review.swift */; };
+		61B5C0D92B62105100E7D87A /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5C0D82B62105100E7D87A /* ReviewView.swift */; };
+		61B5C0DB2B62158A00E7D87A /* StarsSelecitonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B5C0DA2B62158A00E7D87A /* StarsSelecitonView.swift */; };
 		61FB9B7D2B61531100FD66FF /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FB9B792B61531000FD66FF /* Place.swift */; };
 		61FB9B7E2B61531100FD66FF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FB9B7A2B61531000FD66FF /* LocationManager.swift */; };
 		61FB9B7F2B61531100FD66FF /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FB9B7B2B61531100FD66FF /* PlaceViewModel.swift */; };
@@ -39,6 +42,9 @@
 		6189FE722B5AB73300F731C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6189FE752B5AB73300F731C5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6189FE7C2B5AC2B900F731C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		61B5C0D62B620E7500E7D87A /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		61B5C0D82B62105100E7D87A /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		61B5C0DA2B62158A00E7D87A /* StarsSelecitonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsSelecitonView.swift; sourceTree = "<group>"; };
 		61FB9B792B61531000FD66FF /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		61FB9B7A2B61531000FD66FF /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		61FB9B7B2B61531100FD66FF /* PlaceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
@@ -82,15 +88,9 @@
 			children = (
 				6189FE7C2B5AC2B900F731C5 /* Info.plist */,
 				6189FE6E2B5AB73000F731C5 /* SnacktacularApp.swift */,
-				61FB9B792B61531000FD66FF /* Place.swift */,
-				616275162B604B990091D6BD /* Spot.swift */,
-				6162751A2B60544B0091D6BD /* SpotViewModel.swift */,
-				61FB9B7A2B61531000FD66FF /* LocationManager.swift */,
-				61FB9B7B2B61531100FD66FF /* PlaceViewModel.swift */,
-				6189FE702B5AB73000F731C5 /* LoginView.swift */,
-				616275142B60040D0091D6BD /* ListView.swift */,
-				616275182B604C940091D6BD /* SpotDetailView.swift */,
-				61FB9B7C2B61531100FD66FF /* PlaceLookupView.swift */,
+				61B5C0D32B620E1A00E7D87A /* Models */,
+				61B5C0D42B620E3E00E7D87A /* ViewModels */,
+				61B5C0D52B620E5000E7D87A /* Views */,
 				6189FE722B5AB73300F731C5 /* Assets.xcassets */,
 				618114622B5AC87900122B31 /* GoogleService-Info.plist */,
 				6189FE742B5AB73300F731C5 /* Preview Content */,
@@ -104,6 +104,39 @@
 				6189FE752B5AB73300F731C5 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		61B5C0D32B620E1A00E7D87A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				616275162B604B990091D6BD /* Spot.swift */,
+				61B5C0D62B620E7500E7D87A /* Review.swift */,
+				61FB9B792B61531000FD66FF /* Place.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		61B5C0D42B620E3E00E7D87A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6162751A2B60544B0091D6BD /* SpotViewModel.swift */,
+				61FB9B7A2B61531000FD66FF /* LocationManager.swift */,
+				61FB9B7B2B61531100FD66FF /* PlaceViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		61B5C0D52B620E5000E7D87A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6189FE702B5AB73000F731C5 /* LoginView.swift */,
+				616275142B60040D0091D6BD /* ListView.swift */,
+				616275182B604C940091D6BD /* SpotDetailView.swift */,
+				61FB9B7C2B61531100FD66FF /* PlaceLookupView.swift */,
+				61B5C0D82B62105100E7D87A /* ReviewView.swift */,
+				61B5C0DA2B62158A00E7D87A /* StarsSelecitonView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,8 +224,11 @@
 				61FB9B7F2B61531100FD66FF /* PlaceViewModel.swift in Sources */,
 				61FB9B802B61531100FD66FF /* PlaceLookupView.swift in Sources */,
 				6189FE712B5AB73000F731C5 /* LoginView.swift in Sources */,
+				61B5C0DB2B62158A00E7D87A /* StarsSelecitonView.swift in Sources */,
+				61B5C0D92B62105100E7D87A /* ReviewView.swift in Sources */,
 				6162751B2B60544B0091D6BD /* SpotViewModel.swift in Sources */,
 				6189FE6F2B5AB73000F731C5 /* SnacktacularApp.swift in Sources */,
+				61B5C0D72B620E7500E7D87A /* Review.swift in Sources */,
 				61FB9B7E2B61531100FD66FF /* LocationManager.swift in Sources */,
 				616275152B60040D0091D6BD /* ListView.swift in Sources */,
 				61FB9B7D2B61531100FD66FF /* Place.swift in Sources */,
