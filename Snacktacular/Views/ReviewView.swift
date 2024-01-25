@@ -10,8 +10,8 @@ import SwiftUI
 struct ReviewView: View {
     @State var spot: Spot
     @State var review: Review
+    @StateObject var reviewVM = ReviewViewModel()
     @Environment(\.dismiss) private var dismiss
-    
     
     var body: some View {
         VStack {
@@ -33,7 +33,7 @@ struct ReviewView: View {
                 .bold()
             
             HStack {
-                StarsSelecitonView(rating: review.rating)
+                StarsSelecitonView(rating: $review.rating)
                     .overlay {
                         RoundedRectangle(cornerRadius: 5)
                             .stroke(.gray.opacity(0.5), lineWidth: 2)
@@ -76,12 +76,16 @@ struct ReviewView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
-                    // TODO: Add Save code here
-                    dismiss()
+                    Task {
+                        let success = await reviewVM.saveReview(spot: spot,review: review)
+                        if success {
+                            dismiss()
+                        } else {
+                            print("😡 ERROR: Saving data in ReviewView")
+                        }
+                    }
                 }
             }
-            
-            
         }
     }
 }
