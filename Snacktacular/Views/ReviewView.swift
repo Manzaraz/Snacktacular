@@ -89,13 +89,13 @@ struct ReviewView: View {
         }
         .navigationBarBackButtonHidden(postedByThisUser) // Hide back button if posted by this user
         .toolbar {
-            
             if postedByThisUser {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         dismiss()
                     }
                 }
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
                         Task {
@@ -108,7 +108,26 @@ struct ReviewView: View {
                         }
                     }
                 }
+                
+                if review.id != nil {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        Spacer()
+                        
+                        Button {
+                            Task {
+                                let success = await reviewVM.deleteReview(spot: spot, review: review)
+                                if success {
+                                    dismiss()
+                                }
+                            }
+                            
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                    }
+                }
             }
+                
         }
     }
 }
