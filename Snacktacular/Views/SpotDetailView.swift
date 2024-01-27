@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import FirebaseFirestoreSwift
+import PhotosUI
 
 struct SpotDetailView: View {
     struct Annotation: Identifiable {
@@ -30,6 +31,8 @@ struct SpotDetailView: View {
     @State private var showingAsSheet = false
     @State private var mapRegion = MKCoordinateRegion()
     @State private var annotations: [Annotation] = []
+    @State private var selectedPhoto: PhotosPickerItem?
+    
     var avgRating: String {
         guard reviews.count != 0 else {
             return "-.-"
@@ -69,6 +72,61 @@ struct SpotDetailView: View {
                 mapRegion.center = spot.coordinate
             }
             
+            HStack {
+                
+                Group {
+                    Text("Avg. Rating:")
+                        .font(.title2)
+                    .bold()
+                    Text(avgRating)
+                        .font(.title)
+                        .fontWeight(.black)
+                        .foregroundStyle(Color("SnackColor"))
+                }
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                
+                Spacer()
+                
+                Group {
+                    PhotosPicker(selection: $selectedPhoto, matching: .images, preferredItemEncoding: .automatic) {
+                        Image(systemName: "photo")
+                        Text("Photo")
+                    }
+                    .onChange(of: selectedPhoto) {
+                        Task {
+//                            do {
+                            if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+                                if let uiImage = UIImage(data: data) {
+                                    // TODO: This is where you'd set your Image = Image(uiImage: UIImage) or call your function to save the image
+                                    print("📸 Successfully selected image!")
+                                }
+                            }
+//                            } catch error {
+//                                print("😡 ERROR: selecting image failed \(error.localizedDescription)")
+//                            }
+                        }
+                    }
+                    
+                    Button {
+                        if spot.id == nil {
+                            showSaveAlert.toggle()
+                        } else {
+                            showReviewViewSheet.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "star.fill")
+                        Text("Rate")
+                    }
+                }
+                .font(Font.caption)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                .buttonStyle(.borderedProminent)
+                .tint(Color("SnackColor"))
+            }
+            .padding(.horizontal)
+            
             List {
                 Section {
                     ForEach(reviews) { review in
@@ -78,29 +136,6 @@ struct SpotDetailView: View {
                             SpotReviewRowView(review: review)
                         }
                         
-                    }
-                } header: {
-                    HStack {
-                        Text("Avg. Rating:")
-                            .font(.title2)
-                            .bold()
-                        Text(avgRating) 
-                            .font(.title)
-                            .fontWeight(.black)
-                            .foregroundStyle(Color("SnackColor"))
-                        
-                        Spacer()
-                        
-                        Button("Rate It") {
-                            if spot.id == nil {
-                                showSaveAlert.toggle()
-                            } else {
-                                showReviewViewSheet.toggle()
-                            }
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .bold()
-                        .tint(Color("SnackColor"))
                     }
                 }
                 .headerProminence(.increased)
