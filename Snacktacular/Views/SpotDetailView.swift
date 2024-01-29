@@ -77,7 +77,7 @@ struct SpotDetailView: View {
                 Group {
                     Text("Avg. Rating:")
                         .font(.title2)
-                    .bold()
+                        .bold()
                     Text(avgRating)
                         .font(.title)
                         .fontWeight(.black)
@@ -95,16 +95,16 @@ struct SpotDetailView: View {
                     }
                     .onChange(of: selectedPhoto) {
                         Task {
-//                            do {
-                            if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
-                                if let uiImage = UIImage(data: data) {
-                                    // TODO: This is where you'd set your Image = Image(uiImage: UIImage) or call your function to save the image
-                                    print("📸 Successfully selected image!")
+                            do {
+                                if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+                                    if let uiImage = UIImage(data: data) {
+                                        // TODO: This is where you'd set your Image = Image(uiImage: UIImage) or call your function to save the image
+                                        print("📸 Successfully selected image!")
+                                    }
                                 }
+                            } catch {
+                                print("😡 ERROR: selecting image failed \(error.localizedDescription)")
                             }
-//                            } catch error {
-//                                print("😡 ERROR: selecting image failed \(error.localizedDescription)")
-//                            }
                         }
                     }
                     

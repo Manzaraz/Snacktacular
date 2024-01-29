@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		612393602B63301500E03AF5 /* SpotReviewRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6123935F2B63301500E03AF5 /* SpotReviewRowView.swift */; };
+		614CA9C42B68117C007E5068 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614CA9C32B68117C007E5068 /* Photo.swift */; };
 		616275152B60040D0091D6BD /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616275142B60040D0091D6BD /* ListView.swift */; };
 		616275172B604B990091D6BD /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616275162B604B990091D6BD /* Spot.swift */; };
 		616275192B604C940091D6BD /* SpotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616275182B604C940091D6BD /* SpotDetailView.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		6123935F2B63301500E03AF5 /* SpotReviewRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotReviewRowView.swift; sourceTree = "<group>"; };
+		614CA9C32B68117C007E5068 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		616275142B60040D0091D6BD /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		616275162B604B990091D6BD /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		616275182B604C940091D6BD /* SpotDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailView.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		6189FE622B5AB73000F731C5 = {
 			isa = PBXGroup;
 			children = (
+				614CA9C32B68117C007E5068 /* Photo.swift */,
 				6189FE6D2B5AB73000F731C5 /* Snacktacular */,
 				6189FE6C2B5AB73000F731C5 /* Products */,
 			);
@@ -226,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				614CA9C42B68117C007E5068 /* Photo.swift in Sources */,
 				616275192B604C940091D6BD /* SpotDetailView.swift in Sources */,
 				61FB9B7F2B61531100FD66FF /* PlaceViewModel.swift in Sources */,
 				61B5C0DD2B621EE900E7D87A /* ReviewViewModel.swift in Sources */,
