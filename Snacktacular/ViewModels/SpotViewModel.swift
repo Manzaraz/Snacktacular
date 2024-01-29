@@ -69,7 +69,7 @@ class SpotViewModel: ObservableObject {
                 let imageURL = try await storageRef.downloadURL()
                 imageURLString = "\(imageURL)" // We'll save this to Cloud Firestore as part of document in "photos" colleciton, below
             } catch {
-                print("😡 ERROR: Could not get imageURL after saving image \(error.localizedDescription)")
+                print("😡 ERROR: Could not get imageURL after saving image \(error.localizedDescription)") // see this if there's an error
                 return false
             }
         } catch {
