@@ -2,7 +2,9 @@
 //  Photo.swift
 //  Snacktacular
 //
-//  Created by Christian Manzaraz on 27/01/2024.
+
+//  Created by Christian Manzaraz on 29/01/2024.
+
 //
 
 import Foundation
@@ -18,5 +20,7 @@ struct Photo: Identifiable, Codable {
     
     var dictionary: [String: Any] {
         return ["imageURLString": imageURLString, "description": description, "reviewer": reviewer, "postedOn": Timestamp(date: Date())]
-    }    
+
+    }
+
 }
