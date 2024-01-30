@@ -26,6 +26,7 @@ struct SpotDetailView: View {
     
     // The variable below doesn't have the right path. We'll change this in .onAppear
     @FirestoreQuery(collectionPath: "spots") var reviews: [Review]
+    @FirestoreQuery(collectionPath: "spots") var photos: [Photo]
     
     @State var spot: Spot
     @State private var showPlaceLookupSheet = false
@@ -78,6 +79,8 @@ struct SpotDetailView: View {
                 mapRegion.center = spot.coordinate
             }
             
+            SpotDetailPhotosScrollView(photos: photos, spot: spot)
+            
             HStack {
                 
                 Group {
@@ -101,22 +104,20 @@ struct SpotDetailView: View {
                     }
                     .onChange(of: selectedPhoto) {
                         Task {
-                            do {
-                                if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
-                                    if let uiImage = UIImage(data: data) {
-                                        uiImageSelected = uiImage
-                                        print("📸 Successfully selected image!")
-                                        buttonPressed = .photo
-                                        if spot.id == nil {
-                                            showSaveAlert.toggle()
-                                        } else {
-                                            showPhotoViewSheet.toggle()
-                                        }
+                            
+                            if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+                                if let uiImage = UIImage(data: data) {
+                                    uiImageSelected = uiImage
+                                    print("📸 Successfully selected image!")
+                                    buttonPressed = .photo
+                                    if spot.id == nil {
+                                        showSaveAlert.toggle()
+                                    } else {
+                                        showPhotoViewSheet.toggle()
                                     }
                                 }
-                            } catch {
-                                print("😡 ERROR: selecting image failed \(error.localizedDescription)")
                             }
+                            
                         }
                     }
                     
@@ -161,6 +162,9 @@ struct SpotDetailView: View {
             if !previewRunning && spot.id != nil { // This is to prevent PreviewProvider error
                 $reviews.path = "spots/\(spot.id ?? "")/reviews"
                 print("reviews.path = \($reviews.path)")
+                
+                $photos.path = "spots/\(spot.id ?? "")/photos"
+                print("photos.path = \($photos.path)")
             } else { // spot.id starts out as nil
                 showingAsSheet = true
             }
@@ -241,8 +245,7 @@ struct SpotDetailView: View {
                     if success {
                         // If we didn't update the path after saving spot, we wouldn't be able to show new reviews added
                         $reviews.path = "spots/\(spot.id ?? "")/reviews"
-                        // TODO: Add Photos
-//                        $photos.path = "spots/\(spot.id ?? "")/photos"
+                        $photos.path = "spots/\(spot.id ?? "")/photos"
                         
                         switch buttonPressed {
                         case .review:
@@ -250,7 +253,7 @@ struct SpotDetailView: View {
                         case .photo:
                             showPhotoViewSheet.toggle()
                         }
-
+                        
                     } else {
                         print("😡 Dang! Error saving spot!")
                     }
