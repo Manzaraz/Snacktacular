@@ -47,6 +47,7 @@ class SpotViewModel: ObservableObject {
             return false
         }
         
+
         var photoName = UUID().uuidString // This will be the name of the image file
         if photo.id != nil {
             photoName = photo.id! // I have a photo.id, so use this as the photoName. This happens if we're updating an existing Photo's descriptive info. It'll resave the photo, but that's OK. It'll just overwrite the existing one.
@@ -56,10 +57,12 @@ class SpotViewModel: ObservableObject {
         
         guard let resisedImage = image.jpegData(compressionQuality: 0.2) else {
             print("😡 ERROR: Could not resize  image")
+
             return false
         }
         
         let metadata = StorageMetadata()
+
         metadata.contentType = "image/jpg" //  Setting metadata allows you to see console image in the web browser. This setting wil work for png as well as png
         
         var imageURLString = "" // We'll set this after the image is successfuly saved
@@ -73,6 +76,7 @@ class SpotViewModel: ObservableObject {
                 imageURLString = "\(imageURL)" // We'll save this to Cloud Firestore as part of document in "photos" colleciton, below
             } catch {
                 print("😡 ERROR: Could not get imageURL after saving image \(error.localizedDescription)") // see this if there's an error
+
                 return false
             }
         } catch {
@@ -84,11 +88,13 @@ class SpotViewModel: ObservableObject {
         let db = Firestore.firestore()
         
         let collectionString = "spots/\(spotID)/photos/"
+
         
         do {
             var newPhoto = photo
             newPhoto.imageURLString = imageURLString
             try await db.collection(collectionString).document(photoName).setData(newPhoto.dictionary)
+
             print("😎 Data updated successfully!")
             return true
         } catch  {
