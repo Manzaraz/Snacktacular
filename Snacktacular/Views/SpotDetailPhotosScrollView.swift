@@ -15,6 +15,10 @@ struct SpotDetailPhotosScrollView: View {
     
 //    let photos = [FackePhoto(), FackePhoto(), FackePhoto(),FackePhoto(), FackePhoto(),FackePhoto(),FackePhoto(), FackePhoto()]
     
+    @State private var showPhotoViewerView = false
+    @State private var uiImage = UIImage()
+    @State var selectedPhoto = Photo()
+    
     var photos: [Photo]
     var spot: Spot
     
@@ -27,20 +31,28 @@ struct SpotDetailPhotosScrollView: View {
                         image
                             .resizable()
                             // Order is important here!
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 80, height: 80)
-                            .scaledToFill()
                             .clipped()
+                            .onTapGesture {
+                                let renderer = ImageRenderer(content: image)
+                                selectedPhoto = photo
+                                uiImage = renderer.uiImage ?? UIImage()
+                                showPhotoViewerView.toggle()
+                            }
                         
                     } placeholder: {
                         ProgressView()
+                            .frame(width: 80, height: 80)
                     }
-
-                    
                 }
             }
         }
         .frame(height: 80)
         .padding(.horizontal, 4)
+        .sheet(isPresented: $showPhotoViewerView) {
+            PhotoView(photo: $selectedPhoto, uiImage: uiImage, spot: spot)
+        }
     }
 }
 

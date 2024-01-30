@@ -47,7 +47,10 @@ class SpotViewModel: ObservableObject {
             return false
         }
         
-        let photoName = UUID().uuidString // This will be the name of the image file
+        var photoName = UUID().uuidString // This will be the name of the image file
+        if photo.id != nil {
+            photoName = photo.id! // I have a photo.id, so use this as the photoName. This happens if we're updating an existing Photo's descriptive info. It'll resave the photo, but that's OK. It'll just overwrite the existing one.
+        }
         let storage = Storage.storage() // Create a Firebase Storage instance
         let storageRef = storage.reference().child("\(spotID)/\(photoName).jpeg")
         
